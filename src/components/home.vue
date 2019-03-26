@@ -12,7 +12,7 @@
       </div>
       <calousel :width="calWidth" :height="calHeight" @getTabNum="changeTab" :num="num">
        <div class="plate"><userCenter></userCenter></div>
-       <div class="as"></div>
+       <div class="plate"><recommendedCon></recommendedCon></div>
        <div class="bs"></div>
       </calousel>
     </div>
@@ -22,6 +22,7 @@
 import userMes from './userMes'
 import userCenter from './userCenter'
 import calousel from './calousel'
+import recommendedCon from './recommendedCon'
 
 export default {
   name: 'home',
@@ -40,7 +41,8 @@ export default {
   components: {
     userMes,
     userCenter,
-    calousel
+    calousel,
+    recommendedCon
   },
   methods: {
     showAside () {
@@ -111,12 +113,6 @@ export default {
      color:white;
    }
    .plate{
-     float:left;
-   }
-   .as{
-     width:362px;
-     height:578px;
-     background-color:red;
      float:left;
    }
    .bs{

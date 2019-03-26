@@ -63,3 +63,18 @@ export function getLyric (id) {
       }
     })
 }
+
+export function getBanner () {
+  return axios({
+    method: 'get',
+    url: 'http://localhost:3000/banner'
+  })
+    .then(function (res) {
+      let imgres = JSON.parse(res.request.response)
+      if (imgres.code === 200) {
+        return imgres.banners
+      } else {
+        return []
+      }
+    })
+}
