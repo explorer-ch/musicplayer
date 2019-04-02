@@ -33,7 +33,7 @@ export function musicDetail (id) {
   })
     .then(function (res) {
       if (res.data.code === 200) {
-        return res.data.songs[0]
+        return res.data.songs
       }
     })
 }
@@ -76,5 +76,55 @@ export function getBanner () {
       } else {
         return []
       }
+    })
+}
+
+export function commendSongSheet () {
+  return axios({
+    method: 'get',
+    url: 'http://localhost:3000/personalized'
+  })
+    .then(function (res) {
+      return res.data.result
+    })
+}
+
+export function songSheetDetail (id) {
+  return axios({
+    method: 'get',
+    url: 'http://localhost:3000/playlist/detail?id=' + id
+  })
+    .then(function (res) {
+      return res
+    })
+}
+
+export function login (method, num, password) {
+  if (method === 'cellphone') {
+    return axios({
+      method: 'get',
+      url: `http://localhost:3000/login/cellphone?phone=${num}&password=${password}`
+    })
+      .then(function (res) {
+        console.log(res)
+      })
+  } else if (method === 'email') {
+    return axios({
+      method: 'get',
+      url: `http://localhost:3000/login?email=${num}@163.com&password=${password}`
+    })
+      .then(function (res) {
+        console.log(res)
+      })
+  }
+}
+
+export function rank (key) {
+  return axios({
+    method: 'get',
+    url: 'http://localhost:3000/top/list?idx=' + key
+  })
+    .then(function (res) {
+      return res.data.playlist
     })
 }

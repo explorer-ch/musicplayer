@@ -94,6 +94,8 @@ export default {
       window.event ? window.event.cancelBubble = true : e.stopPropagation()
       this.jmpPic = false
       let curKey = -Math.round(this.banPos / this.w)
+      this.banPos = -curKey * this.w
+      this.animateState = true
       if (curKey === 0) {
         setTimeout(() => {
           this.jmpPic = true
@@ -106,8 +108,6 @@ export default {
           this.banPos = -this.w
         }, 1000)
       }
-      this.banPos = -curKey * this.w
-      this.animateState = true
     }
   }
 }

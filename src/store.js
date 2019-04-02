@@ -84,6 +84,7 @@ export default new Vuex.Store({
     },
     emptyMusicList (state) {
       state.playData.musicStack = []
+      state.audio.src = ''
     },
     updateMusicHistory (state, music) {
       let res = state.playData.musicStack.findIndex((item) => {

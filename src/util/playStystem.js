@@ -32,6 +32,7 @@ export function initAudio (audio, vm) {
 export function switchMusic (id, vm) {
   vm.$store.commit('setMusicId', id)
   musicDetail(id).then((val) => {
+    val = val[0]
     let imgUrl = 'url(' + val.al.picUrl + ')'
     let musicAr = val.ar[0].name + ' >'
     let title = val.name + (val.alia[0] ? '(' + val.alia[0] + ')' : '')

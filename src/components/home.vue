@@ -10,7 +10,7 @@
         </div>
         <i class="search-icon" @click="goSearch"></i>
       </div>
-      <calousel :width="calWidth" :height="calHeight" @getTabNum="changeTab" :num="num">
+      <calousel :width="calWidth" :height="calHeight" @getTabNum="changeTab" :tabKey="tabNum">
        <div class="plate"><userCenter></userCenter></div>
        <div class="plate"><recommendedCon></recommendedCon></div>
        <div class="bs"></div>
@@ -28,8 +28,7 @@ export default {
   name: 'home',
   data () {
     return {
-      tabNum: 0,
-      num: 0,
+      tabNum: 1,
       calWidth: 0,
       calHeight: 0
     }
@@ -56,7 +55,7 @@ export default {
       this.tabNum = e
     },
     switchTab (num) {
-      this.num = num
+      this.tabNum = num
     }
   }
 }
