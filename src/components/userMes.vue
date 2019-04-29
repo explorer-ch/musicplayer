@@ -3,9 +3,9 @@
       <div class="slide" data-title='slide'>
         <div class="header" data-id='1'>
           <div class="headerLeft">
-            <div class="headerPic"></div>
+            <div class="headerPic" :style="{backgroundImage:userImg}"></div>
             <div class="headerName">
-              <span class="userName">古月方玄</span>
+              <span class="userName">{{nickname}}</span>
             </div>
           </div>
           <div class="headerRight"></div>
@@ -20,6 +20,7 @@
           <ul>
             <li>我的好友</li>
             <li>附近的人</li>
+            <li @click="unlogin">退出</li>
           </ul>
         </div>
         <div class="footer" data-id='3'>
@@ -41,6 +42,12 @@ export default {
     },
     ground () {
       return this.$store.state.slideCom.slideGround
+    },
+    userImg () {
+      return this.$store.state.loginState ? 'url(' + this.$store.state.user.headImg + ')' : ''
+    },
+    nickname () {
+      return this.$store.state.loginState ? this.$store.state.user.nickname : ''
     }
   },
   methods: {
@@ -53,6 +60,11 @@ export default {
         this.$store.commit('controlSlidePos', '-100%')
         this.$store.commit('controlSlideGround', 'rgba(0,0,0,0)')
       }
+    },
+    unlogin (e) {
+      window.event ? window.event.cancelBubble = true : e.stopPropagation()
+      this.$store.commit('unlogin')
+      this.$router.push({ path: '/' })
     }
   }
 }
@@ -90,7 +102,7 @@ export default {
           .headerPic{
             flex:0 0 67%;
             border-radius:50%;
-            background-image:url('../assets/header.jpg');
+            background-size:cover;
           }
           .headerName{
             flex:0 0 33%;

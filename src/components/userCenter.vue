@@ -2,13 +2,13 @@
   <div class="container">
     <div class="upBgd"></div>
     <div class="mesCol">
-      <div class="img"></div>
-      <span>古月方玄</span>
+      <div class="img" :style="{backgroundImage:userImg}"></div>
+      <span>{{nickname}}</span>
     </div>
     <div class="content">
       <ul class="mes">
         <li><i class="font iconfont icon-yinle"></i>本地音乐</li>
-        <li><i class="font iconfont icon-zuijinbofang"></i>最近播放</li>
+        <li @click="gotofun"><i class="font iconfont icon-zuijinbofang"></i>最近播放</li>
         <li><i class="font iconfont icon-xiazai"></i>下载管理</li>
         <li><i class="font iconfont icon-diantaizhibo"></i>我的电台</li>
         <li><i class="font iconfont icon-shoucang"></i>我的收藏</li>
@@ -18,12 +18,27 @@
 </template>
 
 <script>
+export default {
+  computed: {
+    userImg () {
+      return this.$store.state.loginState ? 'url(' + this.$store.state.user.headImg + ')' : ''
+    },
+    nickname () {
+      return this.$store.state.loginState ? this.$store.state.user.nickname : ''
+    }
+  },
+  methods: {
+    gotofun () {
+      if (this.$store.state.loginState) this.$router.push({ name: 'localFun' })
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>
 .container{
-  width:362px;
-  height:578px;
+  width:100%;
+  height:100%;
   position:relative;
   .upBgd{
     height:15%;
@@ -46,7 +61,6 @@
       width:50px;
       height:50px;
       border-radius:50%;
-      background-image:url('../assets/header.jpg');
       background-size:cover;
       margin-right:10px;
     }

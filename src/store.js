@@ -5,6 +5,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    user: {
+    },
+    loginState: false,
     slideCom: {
       slidePos: '-100%',
       slideGround: 'rgba(0,0,0,0)'
@@ -31,6 +34,14 @@ export default new Vuex.Store({
     smallPlayer: true
   },
   mutations: {
+    login (state, mes) {
+      state.user = mes
+      state.loginState = true
+    },
+    unlogin (state) {
+      state.user = {}
+      state.loginState = false
+    },
     loadAudio (state, obj) {
       state.audio = obj
     },

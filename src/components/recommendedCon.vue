@@ -7,7 +7,7 @@
         <div class="iconBlock"><i class="funcon iconfont icon-tuijianbaobiao2"></i></div>
         <span>每日推荐</span>
       </div>
-      <div class="funBlock">
+      <div class="funBlock" @click="allSheet">
        <div class="iconBlock"><i class="funcon iconfont icon-jiarugedan"></i></div>
        <span>歌单</span>
       </div>
@@ -19,9 +19,11 @@
      <div class="songSheets">
        <div class="header">
          <span>推荐歌单</span>
-         <span class="link">歌单广场</span>
+         <span class="link" @click="allSheet">歌单广场</span>
        </div>
-       <songSheetIcon v-for="(songSheet,index) in songSheets" :mes="songSheet" :key="index"></songSheetIcon>
+       <div class="songsheetCon">
+         <songSheetIcon v-for="(songSheet,index) in songSheets" :mes="songSheet" :key="index"></songSheetIcon>
+       </div>
      </div>
    </div>
 </template>
@@ -51,6 +53,9 @@ export default {
   methods: {
     getRank () {
       this.$router.push({ name: 'rank' })
+    },
+    allSheet () {
+      this.$router.push({ name: 'sheetground' })
     }
   }
 }
@@ -58,8 +63,8 @@ export default {
 
 <style lang="less" scoped>
   .container{
-    width:362px;
-    height:578px;
+    width:100%;
+    height:100%;
     background:white;
     position:relative;
     overflow:scroll;
@@ -112,6 +117,7 @@ export default {
       width:100%;
       height:40%;
       border-top:1px solid rgba(0, 0, 0, .05);
+      font-size:10px;
       .header{
         width:100%;
         height:10%;
@@ -126,6 +132,12 @@ export default {
           border-radius:10%;
           font-size:13px;
         }
+      }
+      .songsheetCon{
+        display:flex;
+        justify-content:space-around;
+        align-content:space-around;
+        flex-wrap:wrap;
       }
     }
   }

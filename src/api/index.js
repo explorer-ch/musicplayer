@@ -1,7 +1,8 @@
 import axios from 'axios'
+const serverUrl = 'http://guyuefangxuan.top'
 
 export function search (key) {
-  let url = 'http://localhost:3000/search?keywords=' + key
+  let url = serverUrl + '/search?keywords=' + key
   return axios({
     method: 'get',
     url: url
@@ -16,7 +17,7 @@ export function search (key) {
 export function getHot () {
   return axios({
     method: 'get',
-    url: 'http://localhost:3000/search/hot'
+    url: serverUrl + '/search/hot'
   })
     .then(function (res) {
       if (res.data.code === 200) {
@@ -26,7 +27,7 @@ export function getHot () {
 }
 
 export function musicDetail (id) {
-  let url = 'http://localhost:3000/song/detail?ids=' + id
+  let url = serverUrl + '/song/detail?ids=' + id
   return axios({
     method: 'get',
     url: url
@@ -39,7 +40,7 @@ export function musicDetail (id) {
 }
 
 export function musicUrl (id) {
-  let url = 'http://localhost:3000/song/url?id=' + id
+  let url = serverUrl + '/song/url?id=' + id
   return axios({
     method: 'get',
     url: url
@@ -52,7 +53,7 @@ export function musicUrl (id) {
 }
 
 export function getLyric (id) {
-  let url = 'http://localhost:3000/lyric?id=' + id
+  let url = serverUrl + '/lyric?id=' + id
   return axios({
     method: 'get',
     url: url
@@ -67,7 +68,7 @@ export function getLyric (id) {
 export function getBanner () {
   return axios({
     method: 'get',
-    url: 'http://localhost:3000/banner'
+    url: serverUrl + '/banner'
   })
     .then(function (res) {
       let imgres = JSON.parse(res.request.response)
@@ -82,7 +83,7 @@ export function getBanner () {
 export function commendSongSheet () {
   return axios({
     method: 'get',
-    url: 'http://localhost:3000/personalized'
+    url: serverUrl + '/personalized'
   })
     .then(function (res) {
       return res.data.result
@@ -92,7 +93,7 @@ export function commendSongSheet () {
 export function songSheetDetail (id) {
   return axios({
     method: 'get',
-    url: 'http://localhost:3000/playlist/detail?id=' + id
+    url: serverUrl + '/playlist/detail?id=' + id
   })
     .then(function (res) {
       return res
@@ -103,18 +104,18 @@ export function login (method, num, password) {
   if (method === 'cellphone') {
     return axios({
       method: 'get',
-      url: `http://localhost:3000/login/cellphone?phone=${num}&password=${password}`
+      url: serverUrl + `/login/cellphone?phone=${num}&password=${password}`
     })
       .then(function (res) {
-        console.log(res)
+        return res.data
       })
   } else if (method === 'email') {
     return axios({
       method: 'get',
-      url: `http://localhost:3000/login?email=${num}@163.com&password=${password}`
+      url: serverUrl + `/login?email=${num}@163.com&password=${password}`
     })
       .then(function (res) {
-        console.log(res)
+        return res.data
       })
   }
 }
@@ -122,9 +123,38 @@ export function login (method, num, password) {
 export function rank (key) {
   return axios({
     method: 'get',
-    url: 'http://localhost:3000/top/list?idx=' + key
+    url: serverUrl + '/top/list?idx=' + key
   })
     .then(function (res) {
       return res.data.playlist
+    })
+}
+
+export function playhistory (id) {
+  return axios({
+    method: 'get',
+    url: serverUrl + '/user/record?uid=' + id + '&type=1'
+  })
+    .then(function (res) {
+      return res.data.weekData
+    })
+}
+
+export function getAllSheet (limit, before) {
+  let url = serverUrl + '/top/playlist/highquality'
+  if (limit) {
+    url = url + '?limit=' + limit
+  } else {
+    url = url + '?limit=20'
+  }
+  if (before) {
+    url = url + '&before=' + before
+  }
+  return axios({
+    method: 'get',
+    url: url
+  })
+    .then(function (res) {
+      return res.data
     })
 }

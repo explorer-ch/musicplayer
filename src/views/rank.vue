@@ -4,7 +4,7 @@
       <i class="font iconfont icon-fanhui" @click="back"></i>
       <span class="title">排行榜</span>
     </div>
-    <div class="rankicon" v-for="(mes, index) in rankmes" :key="index">
+    <div class="rankicon" v-for="(mes, index) in rankmes" :key="index" @click="listsDetail(mes.id)">
       <div class="image" :style="{backgroundImage:'url('+mes.img+')'}"></div>
       <div class="content">
         <div class="musicname" v-for="(list,key) in mes.lists" :key="key">{{key+1+'.'+list}}</div>
@@ -24,7 +24,7 @@ export default {
       let mes = {}
       mes.lists = []
       rank(rankkeys[i]).then((val) => {
-        this.id.push(val.id)
+        mes.id = val.id
         mes.img = val.coverImgUrl
         let lists = val.trackIds.slice(0, 3)
         for (let j = 0; j < 3; j++) {
@@ -39,13 +39,15 @@ export default {
   },
   data () {
     return {
-      rankmes: [],
-      id: []
+      rankmes: []
     }
   },
   methods: {
     back () {
       this.$router.go(-1)
+    },
+    listsDetail (id) {
+      this.$router.push({ name: 'songSheet', params: { id: id } })
     }
   }
 }

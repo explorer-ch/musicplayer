@@ -3,6 +3,7 @@
     <div class="switchpage" v-if="switchfun">
      <button class="btu" @click="goLogin">手机号登录</button>
      <button class="btu" @click="goLogin">邮箱登陆</button>
+     <span class="touristBtu" @click="testuse">游客适用</span>
     </div>
     <div class="login" v-else>
       <div class="footer">
@@ -36,8 +37,18 @@ export default {
     goSwitch () {
       this.switchfun = true
     },
+    testuse () {
+      this.$router.push({ name: 'home' })
+    },
     numlogin () {
-      login('cellphone', this.$refs.num.value, this.$refs.password.value)
+      login('cellphone', this.$refs.num.value, this.$refs.password.value).then((val) => {
+        let usermes = {}
+        usermes.userId = val.profile.userId
+        usermes.nickname = val.profile.nickname
+        usermes.headImg = val.profile.avatarUrl
+        this.$store.commit('login', usermes)
+        this.$router.push({ name: 'home' })
+      })
     }
   }
 }
@@ -62,6 +73,8 @@ export default {
       background:red;
       color:white;
       font-size:15px;
+    }
+    .touristBtu{
     }
   }
   .login{

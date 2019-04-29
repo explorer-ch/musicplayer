@@ -13,7 +13,7 @@ export default {
   name: 'searchBox',
   methods: {
     backHome () {
-      this.$router.push('/')
+      this.$router.push('/home')
     },
     cancelClick () {
       this.mes = ''

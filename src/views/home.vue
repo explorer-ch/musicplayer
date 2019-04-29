@@ -10,19 +10,19 @@
         </div>
         <i class="search-icon" @click="goSearch"></i>
       </div>
-      <calousel :width="calWidth" :height="calHeight" @getTabNum="changeTab" :tabKey="tabNum">
-       <div class="plate"><userCenter></userCenter></div>
-       <div class="plate"><recommendedCon></recommendedCon></div>
-       <div class="bs"></div>
+      <calousel :wid="calWidth" :hei="calHeight" @getTabNum="changeTab" :tabKey="tabNum">
+        <div class="plate" :style="{width:calWidth +'px',height:calHeight+'px'}"><userCenter></userCenter></div>
+        <div class="plate" :style="{width:calWidth +'px',height:calHeight+'px'}"><recommendedCon></recommendedCon></div>
+        <div class="bs" :style="{width:calWidth +'px',height:calHeight+'px'}"></div>
       </calousel>
     </div>
 </template>
 
 <script>
-import userMes from './userMes'
-import userCenter from './userCenter'
-import calousel from './calousel'
-import recommendedCon from './recommendedCon'
+import userMes from '../components/userMes'
+import userCenter from '../components/userCenter'
+import calousel from '../components/calousel'
+import recommendedCon from '../components/recommendedCon'
 
 export default {
   name: 'home',

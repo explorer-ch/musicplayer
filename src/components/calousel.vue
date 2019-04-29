@@ -1,15 +1,15 @@
 <template>
-   <div class="win" :style="{width:width+'px',height:height+'px'}">
-      <div :style="{width:conWidth+'px',height:height+'px',marginLeft:tabPos+'px'}" ref="container" @touchstart="start" @touchmove="dragging" @touchend="end" :class="{homeAni:!draggState}">
-       <slot></slot>
-     </div>
+   <div class="win" :style="{width:wid+'px',height:hei+'px'}">
+      <div :style="{width:conWidth+'px',height:hei+'px',marginLeft:tabPos+'px'}" ref="container" @touchstart="start" @touchmove="dragging" @touchend="end" :class="{homeAni:!draggState}">
+        <slot></slot>
+      </div>
    </div>
 </template>
 
 <script>
 export default {
   name: 'calousel',
-  props: ['width', 'height', 'tabKey'],
+  props: ['wid', 'hei', 'tabKey'],
   data () {
     return {
       conWidth: 0,
@@ -30,15 +30,17 @@ export default {
     let childs = container.children
     let width = 0
     let initPos = 0
-    for (let i = 0; i < childs.length; i++) {
-      if (i < this.tabKey) {
-        initPos -= childs[i].offsetWidth
+    setTimeout(() => { /* 这里面数据的计算需要在上级组件mounted钩子函数结束后再进行 */
+      for (let i = 0; i < childs.length; i++) {
+        if (i < this.tabKey) {
+          initPos -= childs[i].offsetWidth
+        }
+        width += childs[i].offsetWidth
+        this.layout.push(width)
       }
-      width += childs[i].offsetWidth
-      this.layout.push(width)
-    }
-    this.conWidth = width
-    this.tabPos = initPos
+      this.conWidth = width
+      this.tabPos = initPos
+    }, 0)
     setTimeout(() => {
       this.draggState = false /* 消除初始化时tab变动的效果 */
     }, 1000)

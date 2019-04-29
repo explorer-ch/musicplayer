@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  props: ['mes'],
+  props: ['mes', 'unswitched', 'index'],
   computed: {
     playCount () {
       if (this.mes.playCount < 10000) {
@@ -23,7 +23,11 @@ export default {
   },
   methods: {
     openSheet (id) {
-      this.$router.push({ name: 'songSheet', params: { id: id } })
+      if (this.unswitched) {
+        this.$emit('changeKey', this.index)
+      } else {
+        this.$router.push({ name: 'songSheet', params: { id: id } })
+      }
     }
   }
 }
@@ -31,15 +35,15 @@ export default {
 
 <style lang="less" scoped>
   .sheetCon{
-    width:100px;
-    height:140px;
-    margin:10px;
+    width:10em;
+    height:14em;
+    margin:1em;
     display:inline-block;
     position:relative;
     .sheetData{
       position:absolute;
-      width:50px;
-      height:20px;
+      width:5em;
+      height:2em;
       top:0px;
       right:0px;
       display:flex;
@@ -51,21 +55,23 @@ export default {
       }
       span{
         color:white;
-        font-size:10px;
+        font-size:1em;
         display:inline-block;
-        width:30px;
-        height:20px;
-        line-height:20px;
+        width:3em;
+        height:2em;
+        line-height:2em;
       }
     }
     .img{
-      width:100px;
-      height:100px;
+      width:10em;
+      height:10em;
       background-size:cover;
     }
     .title{
-      font-size:10px;
-      height:40px;
+      font-size:1em;
+      height:4em;
+      line-height:2em;
+      background:white;
     }
   }
 </style>

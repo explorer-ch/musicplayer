@@ -23,7 +23,7 @@
            </div>
          </div>
          <div class="LyricCon" :style="{display:lyricConShow}">
-           <div class="lyricText" v-for="(lyric,index) in lyricArr" :key="index"><span>{{lyric}}</span></div>
+           <div class="lyricText" v-for="(lyric,index) in lyricArr" :key="index" :style ="{'color':scrollPos===index?'rgba(255, 255, 255, 1)':'rgba(255, 255, 255, .5)'}"><span>{{lyric}}</span></div>
          </div>
        </div>
        <div class="footer">
@@ -95,7 +95,7 @@ export default {
       this.playState = state
     },
     back () {
-      this.$router.push('/')
+      this.$router.push('/home')
     },
     changeCon () {
       this.lyricShow = !this.lyricShow
